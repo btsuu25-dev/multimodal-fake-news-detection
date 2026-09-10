@@ -1,0 +1,39 @@
+data/raw/
+data/processed/
+data/splits/
+
+saved_models/
+*.pt
+*.pth
+*.ckpt
+
+results/plots/
+results/reports/
+results/*.csv
+
+venv/
+.venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.eggs/
+dist/
+build/
+
+.DS_Store         # macOS
+Thumbs.db         # Windows
+desktop.ini       # Windows
+
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+
+
+.ipynb_checkpoints/
+
+.env
+*.key
+secrets.yaml
