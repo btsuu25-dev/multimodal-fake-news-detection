@@ -1,75 +1,26 @@
-# 📊 Trạng Thái Dự Án (Project Status)
-## Cập nhật lần cuối: 2026-09-10
+# Tiến độ dự án
 
----
+## 1. Trạng thái các module
 
-## Tiến Độ Tổng Thể
-
-```
-[██░░░░░░░░] 20% Hoàn thành
-```
-
-| Giai đoạn | Trạng thái | Ghi chú |
-|---|---|---|
-| Phase 1 – Chuẩn bị dữ liệu | ⏳ Chưa bắt đầu | Đang nghiên cứu kế hoạch |
-| Phase 2 – Trích xuất đặc trưng | ⏳ Chưa bắt đầu | |
-| Phase 3 – Mô hình Baseline | ⏳ Chưa bắt đầu | |
-| Phase 4 – Mô hình CrossModal-FND | ⏳ Chưa bắt đầu | |
-| Phase 5 – Đánh giá | ⏳ Chưa bắt đầu | |
-| Phase 6 – Audit Codebase | ⏳ Chưa bắt đầu | |
-
----
-
-## Đã Hoàn Thành ✅
-
-- [x] **Nghiên cứu đề bài** từ giảng viên
-- [x] **Tìm hiểu dataset** gợi ý (Fakeddit, VERITE, NewsCLIPpings)
-- [x] **Tìm hiểu bài báo khoa học** gợi ý (Results in Engineering, 2025)
-- [x] **Xây dựng Implementation Plan** đầy đủ 6 tiêu chí
-- [x] **Hiểu nguyên lý hoạt động** của mô hình (CLIP + Cross-Attention Fusion)
-- [x] **Hiểu khái niệm Feature** (manh mối) trong AI
-- [x] **Thống nhất cách triển khai**: Python Scripts (`.py`), không dùng Notebook để train
-- [x] **Tạo thư mục `docs/`** với các file tài liệu dự án
-
----
-
-## Đang Làm 🔄
-
-- [ ] **Đọc và nghiên cứu Implementation Plan** để nắm vững toàn bộ kế hoạch trước khi code
-
----
-
-## Cần Làm Tiếp Theo 📝
-
-1. **Quyết định dataset**: Fakeddit (lớn, ~5GB ảnh) hay VERITE (nhỏ, dễ chạy thử)?
-2. **Kiểm tra môi trường máy tính**: Có GPU không? RAM bao nhiêu GB?
-3. **Cài Python và các thư viện** cần thiết (`pip install -r requirements.txt`)
-4. **Bắt đầu Phase 1**: Tải và khám phá dữ liệu
-
----
-
-## Vấn Đề & Quyết Định Đang Chờ ⚠️
-
-| # | Vấn đề | Trạng thái | Ghi chú |
+| Module | Thành viên | Nội dung | Trạng thái |
 |---|---|---|---|
-| 1 | Chọn dataset nào? | ❓ Chờ quyết định | Fakeddit (to) vs VERITE (nhỏ) |
-| 2 | Máy tính có GPU không? | ❓ Chờ xác nhận | Ảnh hưởng đến cấu hình mô hình |
-| 3 | Có làm demo app Gradio không? | ❓ Chờ quyết định | Giảng viên có yêu cầu demo không? |
+| M1 | Tô Hoàng Vũ | Dữ liệu & Dataset | ✅ Hoàn thành |
+| M2 | Phạm Anh Tuấn | Xử lý ảnh | ✅ Hoàn thành |
+| M3 | Nguyễn Trọng Vân Khuyên | Xử lý văn bản | ✅ Hoàn thành |
+| M4 | Bùi Trọng Sửu | Baseline | ⏳ Đang thực hiện |
+| M5 | Võ Duy Khanh | Mô hình Multimodal | ⏳ Đang thực hiện |
+| M6 | Nguyễn Thành Tài | Đánh giá mô hình | ⏳ Đang thực hiện |
+| M7 | Nguyễn Gia Hân | Báo cáo & Tài liệu | ⏳ Đang thực hiện |
 
----
+## 2. Quy định cập nhật
 
-## Ghi Chú Quan Trọng 📌
+File tiến độ được cập nhật định kỳ dựa trên báo cáo và kết quả bàn giao của các thành viên.
 
-> **Lưu ý về Code**: Tất cả file Python phải được viết dưới dạng script (`.py`), 
-> không dùng Jupyter Notebook để train model (theo yêu cầu của giảng viên).
+Khi một thành viên hoàn thành phần việc và đã bàn giao, trạng thái sẽ được cập nhật thành `✅ Hoàn thành`.
 
-> **Dataset**: Nếu máy tính không đủ mạnh, ưu tiên dùng **VERITE** (~3K mẫu) 
-> thay vì Fakeddit (~1 triệu mẫu) để đảm bảo chạy được trong thời gian hạn định.
+## 3. Lịch sử cập nhật
 
----
-
-## Nhật Ký Thay Đổi (Changelog)
-
-| Ngày | Cập nhật |
+| Ngày | Nội dung |
 |---|---|
-| 2026-09-10 | Khởi tạo dự án, xây dựng Implementation Plan, tạo thư mục `docs/` |
+| 10/09/2026 | Cập nhật tiến độ tài liệu và README của M7 |
+| 10/09/2026 | Kiểm tra cấu trúc project và các module hiện có |

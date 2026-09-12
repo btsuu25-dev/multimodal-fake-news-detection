@@ -107,39 +107,95 @@ python src/data/download_dataset.py
 ```
 Dataset sẽ được tải về thư mục `data/raw/` tự động.
 
-### Bước 4 – Train mô hình baseline (để so sánh)
-```bash
-python src/train_baseline.py
-```
-Kết quả sẽ được lưu vào `results/reports/baseline_comparison.md`.
+## 4. Cấu trúc thư mục
 
-### Bước 5 – Train mô hình chính CrossModalFND
-```bash
-python src/train.py
+```text
+multimodal-fake-news-detection/
+
+├── README.md
+├── requirements.txt
+├── .gitignore
+│
+├── docs/
+│   ├── contracts.md
+│   ├── plan.md
+│   ├── requirements.md
+│   ├── status.md
+│   └── team_assignment.md
+│
+├── data/
+│   └── raw/
+│
+└── src/
+    ├── data/
+    │   ├── dataset.py
+    │   ├── download_dataset.py
+    │   └── preprocessing.py
+    │
+    ├── models/
+    │   ├── baselines.py
+    │   ├── image_encoder.py
+    │   └── text_encoder.py
+    │
+    └── train_baseline.py
+
 ```
-Mô hình tốt nhất sẽ được lưu vào `saved_models/best_model.pt`.
+## 5. Cài đặt và chạy
+
+### 5.1. Clone repository
+
+```bash
+git clone https://github.com/btsuu25-dev/multimodal-fake-news-detection.git
+cd multimodal-fake-news-detection
 
 ---
+```
+## 6. Mô tả các file trong `src/`
 
-## Kết Quả Kỳ Vọng
+### `src/data/dataset.py`
 
-| Mô hình | Accuracy | F1 | AUC-ROC |
-|---|---|---|---|
-| Text-Only (Baseline) | ~70% | ~0.68 | ~0.76 |
-| Image-Only (Baseline) | ~62% | ~0.60 | ~0.68 |
-| Concat (Baseline) | ~75% | ~0.73 | ~0.82 |
-| **CrossModal-FND (ours)** | **~83%** | **~0.81** | **~0.90** |
+Dùng để đọc và quản lý dữ liệu phục vụ quá trình huấn luyện mô hình.
 
----
+### `src/data/download_dataset.py`
 
-## Thông Tin Nhóm
+Dùng để tải Image Verification Corpus và kiểm tra các file dữ liệu cần thiết.
 
-| Thành viên | Phụ trách |
-|---|---|
-| Thành viên 1 | Dữ liệu – `src/data/` |
-| Thành viên 2 | Mã hóa hình ảnh – `src/models/image_encoder.py` |
-| Thành viên 3 | Mã hóa văn bản – `src/models/text_encoder.py` |
-| Thành viên 4 | Mô hình Baseline – `src/models/baselines.py` |
-| Thành viên 5 | Mô hình chính – `src/models/crossmodal.py`, `src/train.py` |
-| Thành viên 6 | Đánh giá – `src/evaluation/` |
-| Thành viên 7 | Tài liệu – `docs/`, `README.md` |
+### `src/data/preprocessing.py`
+
+Dùng để tiền xử lý và chuẩn hóa dữ liệu đầu vào trước khi đưa vào mô hình.
+
+### `src/models/image_encoder.py`
+
+Xử lý và mã hóa dữ liệu hình ảnh, tạo biểu diễn đặc trưng hình ảnh phục vụ mô hình.
+
+### `src/models/text_encoder.py`
+
+Xử lý và mã hóa dữ liệu văn bản, tạo biểu diễn đặc trưng văn bản phục vụ mô hình.
+
+### `src/models/baselines.py`
+
+Chứa các mô hình Baseline dùng làm cơ sở so sánh với mô hình Multimodal.
+
+### `src/train_baseline.py`
+
+Thực hiện quá trình huấn luyện và đánh giá các mô hình Baseline.
+
+## 7. Thành viên nhóm
+
+| Thành viên | MSSV | Phân công |
+|---|---|---|
+| Tô Hoàng Vũ | 056205009808 | M1 – Dữ liệu & Dataset |
+| Phạm Anh Tuấn | 058205001597 | M2 – Xử lý ảnh |
+| Nguyễn Trọng Vân Khuyên | 068305006610 | M3 – Xử lý văn bản |
+| Bùi Trọng Sửu | 024205002460 | M4 – Baseline |
+| Võ Duy Khanh | 052205011285 | M5 – Mô hình Multimodal |
+| Nguyễn Thành Tài | 052205017040 | M6 – Đánh giá mô hình |
+| Nguyễn Gia Hân | 079306010087 | M7 – Báo cáo & Tài liệu |
+
+## 8. Tiến độ dự án
+
+Tiến độ thực hiện của các thành viên được cập nhật tại file `docs/status.md`.
+
+File này được cập nhật định kỳ dựa trên báo cáo của các thành viên trong nhóm.
+
+Trạng thái hoàn thành của từng thành viên sẽ được đánh dấu `✅` khi phần việc đã hoàn thành và được bàn giao.
