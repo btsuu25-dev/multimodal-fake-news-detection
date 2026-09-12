@@ -38,5 +38,5 @@ desktop.ini       # Windows
 *.key
 secrets.yaml
 
-# Ghi chú cá nhân – không push lên GitHub
+
 local/
