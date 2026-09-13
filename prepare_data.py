@@ -5,7 +5,8 @@ Chạy lệnh: python prepare_data.py
 """
 import os
 import glob
-from src.data.preprocessing import split_dataset, clean_text
+from src.data.preprocessing import clean_text
+from sklearn.model_selection import train_test_split
 import pandas as pd
 from tqdm import tqdm
 
@@ -101,10 +102,56 @@ print(f"Đã lưu: {CSV_OUT}")
 print(f"  REAL (0): {dist.get(0, 0)} mẫu")
 print(f"  FAKE (1): {dist.get(1, 0)} mẫu")
 
-# ── BƯỚC 4: Chia train/val/test ───────────────────────────────
-print("\n=== BƯỚC 4: Chia train/val/test ===")
-result = split_dataset(CSV_OUT, SPLITS_DIR)
-print('Train:', result['train'], '| Val:', result['val'], '| Test:', result['test'])
+# ── BƯỚC 4: Chia train/val/test theo IMAGE-LEVEL (tránh data leakage) ─────
+# Nguyên tắc: Cùng 1 ảnh chỉ xuất hiện trong DUY NHẤT 1 tập (train HOẶC test)
+# Dataset có 360 ảnh → mỗi ảnh gắn với nhiều tweet khác nhau
+# Nếu chia theo tweet-level → ảnh có thể xuất hiện ở cả train và test → data leakage!
+print("\n=== BƯỚC 4: Chia train/val/test (IMAGE-LEVEL SPLIT) ===")
+
+import pandas as pd
+import os
+
+df_full = pd.read_csv(CSV_OUT)
+
+# Lấy danh sách ảnh duy nhất và nhãn đa số của từng ảnh (để stratify)
+unique_images = df_full.groupby('image_path')['label'].agg(
+    lambda x: x.mode()[0]  # Nhãn phổ biến nhất của ảnh đó
+).reset_index()
+unique_images.columns = ['image_path', 'majority_label']
+
+print(f"  Tổng ảnh duy nhất: {len(unique_images)}")
+
+# Bước 4a: Tách test (15%) theo image
+train_val_imgs, test_imgs = train_test_split(
+    unique_images['image_path'],
+    test_size=0.15,
+    stratify=unique_images['majority_label'],
+    random_state=42
+)
+
+# Bước 4b: Tách val (15% / 85% ≈ 17.6%) từ phần còn lại
+train_imgs, val_imgs = train_test_split(
+    train_val_imgs,
+    test_size=0.15/0.85,
+    random_state=42
+)
+
+# Gán tweet vào tập tương ứng dựa trên ảnh của nó
+df_train = df_full[df_full['image_path'].isin(train_imgs)]
+df_val   = df_full[df_full['image_path'].isin(val_imgs)]
+df_test  = df_full[df_full['image_path'].isin(test_imgs)]
+
+os.makedirs(SPLITS_DIR, exist_ok=True)
+df_train.to_csv(os.path.join(SPLITS_DIR, 'train.csv'), index=False, encoding='utf-8')
+df_val.to_csv(os.path.join(SPLITS_DIR, 'val.csv'),   index=False, encoding='utf-8')
+df_test.to_csv(os.path.join(SPLITS_DIR, 'test.csv'), index=False, encoding='utf-8')
+
+print(f"  Train: {len(df_train)} tweets ({len(train_imgs)} ảnh duy nhất)")
+print(f"  Val  : {len(df_val)} tweets ({len(val_imgs)} ảnh duy nhất)")
+print(f"  Test : {len(df_test)} tweets ({len(test_imgs)} ảnh duy nhất)")
+print("  [OK] Không có ảnh nào xuất hiện ở 2 tập cùng lúc!")
 
 print("\n✅ XONG! Dữ liệu sẵn sàng để train.")
-print("Chạy tiếp: python src/train.py")
+print("Chạy tiếp:")
+print("  python src/train_baseline.py")
+print("  python src/train.py")
