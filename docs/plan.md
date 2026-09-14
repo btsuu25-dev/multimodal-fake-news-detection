@@ -58,9 +58,9 @@ Mô hình có tên **CrossModal-FND** hoạt động theo nguyên lý sau:
 
 | Mô hình | Test Accuracy | Test F1 |
 |---|---|---|
-| Text-Only | 53.52% | 0.4926 |
-| Image-Only | 86.50% | 0.8646 |
-| Concat | 87.96% | 0.8788 |
+| Text-Only | 88.55% | 0.8850 |
+| Image-Only | 90.12% | 0.9011 |
+| Concat | 94.13% | 0.9413 |
 
 ---
 
@@ -89,9 +89,9 @@ Mô hình có tên **CrossModal-FND** hoạt động theo nguyên lý sau:
 
 | Epoch | Val F1 | Ghi chú |
 |---|---|---|
-| 1 | 0.9134 | |
-| 4 | **0.9758** | ← Best checkpoint được lưu |
-| 15 | 0.9755 | Bão hòa (overfitting nhẹ) |
+| 1 | 0.9449 | |
+| 4 | **0.9668** | ← Best checkpoint được lưu |
+| 15 | ~0.95 | Bão hòa (overfitting nhẹ) |
 
 ---
 
@@ -107,9 +107,9 @@ Mô hình có tên **CrossModal-FND** hoạt động theo nguyên lý sau:
 
 | Chỉ số | CrossModal-FND | Concat (Baseline tốt nhất) |
 |---|---|---|
-| **Test Accuracy** | **88.16%** | 87.96% |
-| **Test F1** | **0.8809** | 0.8788 |
-| **AUC-ROC** | **0.9357** | — |
+| **Test Accuracy** | **92.95%** | 94.13% |
+| **Test F1** | **0.9296** | 0.9413 |
+| **AUC-ROC** | **0.9772** | — |
 
 Confusion Matrix (CrossModalFND):
 ```

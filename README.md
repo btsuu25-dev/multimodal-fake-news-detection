@@ -6,8 +6,8 @@
 ![Status](https://img.shields.io/badge/Status-Hoàn%20Thành-brightgreen)
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
 ![PyTorch](https://img.shields.io/badge/PyTorch-2.x-orange)
-![Test F1](https://img.shields.io/badge/Test%20F1-0.8809-success)
-![AUC-ROC](https://img.shields.io/badge/AUC--ROC-0.9357-success)
+![Test F1](https://img.shields.io/badge/Test%20F1-0.9296-success)
+![AUC-ROC](https://img.shields.io/badge/AUC--ROC-0.9772-success)
 
 **Môn học:** Xử Lý Ảnh & Thị Giác Máy Tính  
 **Dataset:** [Image Verification Corpus – MediaEval 2015](https://github.com/MKLab-ITI/image-verification-corpus)  
@@ -19,10 +19,10 @@
 
 | Mô hình | Test Accuracy | Test F1 | AUC-ROC |
 |---|---|---|---|
-| Text-Only (Baseline) | 53.52% | 0.4926 | — |
-| Image-Only (Baseline) | 86.50% | 0.8646 | — |
-| Concat (Baseline) | 87.96% | 0.8788 | — |
-| **CrossModal-FND (Của nhóm)** | **88.16%** | **0.8809** | **0.9357** |
+| Text-Only (Baseline) | 88.55% | 0.8850 | — |
+| Image-Only (Baseline) | 90.12% | 0.9011 | — |
+| Concat (Baseline) | 94.13% | 0.9413 | — |
+| **CrossModal-FND (Của nhóm)** | **92.95%** | **0.9296** | **0.9772** |
 
 > Đánh giá trên **image-level split** (không có data leakage): ảnh trong tập test chưa từng xuất hiện ở tập train.
 

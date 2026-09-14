@@ -14,8 +14,8 @@
 | Phase 1 – Chuẩn bị dữ liệu | ✅ Hoàn thành | M1 | `train/val/test.csv` (image-level split) |
 | Phase 2 – Trích xuất đặc trưng | ✅ Hoàn thành | M2, M3 | `image_encoder.py`, `text_encoder.py` |
 | Phase 3 – Mô hình Baseline | ✅ Hoàn thành | M4 | `baseline_*.pt`, `baseline_comparison.md` |
-| Phase 4 – Mô hình CrossModal-FND | ✅ Hoàn thành | M5 | `best_model.pt`, Val F1 = 0.9758 |
-| Phase 5 – Đánh giá | ✅ Hoàn thành | M6 | Test F1 = 0.8809, AUC = 0.9357 |
+| Phase 4 – Mô hình CrossModal-FND | ✅ Hoàn thành | M5 | `best_model.pt`, Val F1 = 0.9668 |
+| Phase 5 – Đánh giá | ✅ Hoàn thành | M6 | Test F1 = 0.9296, AUC = 0.9772 |
 | Phase 6 – Audit Codebase | ✅ Hoàn thành | M5+M6 | `codebase_audit.md`, `dashboard.html` |
 
 ---
@@ -24,10 +24,10 @@
 
 | Chỉ số | Giá trị |
 |---|---|
-| **Test Accuracy** | **88.16%** |
-| **Test F1 Score** | **0.8809** |
-| **Test AUC-ROC** | **0.9357** |
-| Best Val F1 | 0.9758 (Epoch 4/15) |
+| **Test Accuracy** | **92.95%** |
+| **Test F1 Score** | **0.9296** |
+| **Test AUC-ROC** | **0.9772** |
+| Best Val F1 | 0.9668 (Epoch 4/15) |
 | Tổng mẫu hợp lệ | 11.524 tweets (360 ảnh) |
 | Tập Test | 1.022 tweets (54 ảnh, chưa từng nhìn) |
 
