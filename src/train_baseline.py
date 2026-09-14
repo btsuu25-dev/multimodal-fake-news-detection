@@ -24,15 +24,14 @@ except ImportError as e:
 # ==========================================
 # CẤU HÌNH SIÊU THAM SỐ (HYPERPARAMETERS)
 # ==========================================
-EPOCHS     = 10
+EPOCHS = 10
 BATCH_SIZE = 8
-LR         = 1e-3
-DEVICE     = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+LR = 1e-3
+DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-RESULTS_DIR  = "results/reports"
-SAVE_DIR     = "saved_models"
+RESULTS_DIR = "results/reports"
 CSV_TRAIN_PATH = "data/splits/train.csv"
-CSV_VAL_PATH   = "data/splits/val.csv"
+CSV_VAL_PATH = "data/splits/val.csv"
 
 # ==========================================
 # CÁC HÀM XỬ LÝ CHÍNH
@@ -92,26 +91,29 @@ def train_model(model, model_name, mode, train_loader, val_loader, image_encoder
     optimizer = optim.Adam(model.parameters(), lr=LR)
     criterion = nn.CrossEntropyLoss()
     
-    best_f1  = 0.0
+    best_f1 = 0.0
     best_acc = 0.0
-
+    
     for epoch in range(1, EPOCHS + 1):
         model.train()
         total_loss = 0.0
-
+        
+        # tqdm giúp tạo thanh progress bar đẹp mắt trên terminal
         pbar = tqdm(train_loader, desc=f"Epoch {epoch:02d}/{EPOCHS}", leave=False)
         for images, texts, labels in pbar:
             images = images.to(device)
             labels = labels.to(device)
-
+            
+            # Tắt tính gradient cho Encoder để tiết kiệm bộ nhớ (Frozen theo yêu cầu)
             with torch.no_grad():
                 img_emb = image_encoder(images)
-
+                
                 tokens = text_encoder.tokenize(texts)
                 if isinstance(tokens, dict):
                     tokens = {k: v.to(device) for k, v in tokens.items()}
                 txt_emb = text_encoder(tokens)
-
+            
+            # Feed forward
             if mode == 'text':
                 logits = model(txt_emb)
             elif mode == 'image':
@@ -119,29 +121,29 @@ def train_model(model, model_name, mode, train_loader, val_loader, image_encoder
             elif mode == 'concat':
                 combined = torch.cat([img_emb, txt_emb], dim=-1)
                 logits = model(combined)
-
+                
             loss = criterion(logits, labels)
-
+            
+            # Lan truyền ngược & Cập nhật tham số
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
-
+            
             total_loss += loss.item()
             pbar.set_postfix({'loss': f"{loss.item():.4f}"})
-
+            
+        # Cuối mỗi epoch, đánh giá mô hình
         val_acc, val_f1 = evaluate(model, val_loader, image_encoder, text_encoder, mode, device)
         avg_loss = total_loss / len(train_loader)
-
+        
+        # In kết quả (Tuân thủ rule trong team_assignment.md)
         print(f"[{model_name}] Epoch {epoch:02d}/{EPOCHS} | Train Loss: {avg_loss:.4f} | Val Acc: {val_acc*100:.1f}% | Val F1: {val_f1:.4f}")
-
-        # Lưu checkpoint khi F1 cải thiện
+        
+        # Ghi nhận kết quả tốt nhất
         if val_f1 > best_f1:
-            best_f1  = val_f1
+            best_f1 = val_f1
             best_acc = val_acc
-            os.makedirs(SAVE_DIR, exist_ok=True)
-            ckpt_path = os.path.join(SAVE_DIR, f"baseline_{mode}.pt")
-            torch.save(model.state_dict(), ckpt_path)
-
+            
     return best_acc, best_f1
 
 
