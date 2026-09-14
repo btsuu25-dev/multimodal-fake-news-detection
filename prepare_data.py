@@ -48,7 +48,8 @@ print(f"Đọc được {len(df)} dòng, cột: {df.columns.tolist()}")
 # Xác định tên cột image_id và label
 img_col   = next((c for c in df.columns if 'image' in c), None)
 label_col = next((c for c in df.columns if 'label' in c), None)
-text_col  = next((c for c in df.columns if 'text' in c or 'tweet' in c.lower()), None)
+# Sửa lỗi: Phải tìm cột có chữ 'text', nếu chỉ dùng 'tweet' sẽ bị nhầm sang cột 'tweetId'
+text_col  = next((c for c in df.columns if 'text' in c), None)
 
 print(f"Cột ảnh: '{img_col}' | Cột nhãn: '{label_col}' | Cột text: '{text_col}'")
 
