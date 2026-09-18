@@ -85,7 +85,10 @@ def preprocess_image(image_path: str):
 
         # Buoc 3: Chuyen sang RGB
         # CLIP chi nhan RGB (3 kenh mau)
-        # Mot so anh tweet co the la RGBA (4 kenh) hoac grayscale (1 kenh)
+        # Palette (P) co transparency phai chuyen qua RGBA truoc, moi sang RGB
+        # Neu khong se bi UserWarning tu PIL
+        if img.mode == "P" and "transparency" in img.info:
+            img = img.convert("RGBA")
         img = img.convert("RGB")
 
         # Buoc 4: Ap dung transform pipeline (resize + normalize)
